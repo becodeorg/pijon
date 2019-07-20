@@ -1,0 +1,67 @@
+{
+  "name": "@becode/pijon",
+  "version": "0.0.1",
+  "description": "Pijon, the delivery man - File upload lambda",
+  "private": true,
+  "scripts": {
+    "lint": "npx eslint --fix --cache src",
+    "dev": "npx serverless offline --port 6060 start",
+    "build": "npx babel src --out-dir bin",
+    "work": "npx babel src -w --out-dir bin",
+    "deploy:dev": "npx sls deploy",
+    "deploy:prod": "npx sls deploy --stage=production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/becodeorg/pijon.git"
+  },
+  "author": "leny <leny@becode.org>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/becodeorg/pijon/issues"
+  },
+  "homepage": "https://github.com/becodeorg/pijon#readme",
+  "lint-staged": {
+    "*.yml": [
+      "npx prettier --write",
+      "git add"
+    ],
+    "*.json": [
+      "npx prettier --write",
+      "git add"
+    ],
+    "*.js": [
+      "npx eslint --fix --cache",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npx lint-staged"
+    }
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/polyfill": "^7.4.4",
+    "@babel/preset-env": "^7.5.5",
+    "@becode/eslint-config": "^0.5.0",
+    "babel-eslint": "^10.0.2",
+    "eslint": "^6.0.1",
+    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-react": "^7.14.2",
+    "eslint-plugin-unicorn": "^9.1.1",
+    "husky": "^3.0.1",
+    "lint-staged": "^9.2.0",
+    "prettier": "^1.18.2",
+    "serverless": "^1.48.0",
+    "serverless-domain-manager": "^3.2.6",
+    "serverless-offline": "^5.8.0",
+    "serverless-s3-local": "^0.5.0"
+  },
+  "dependencies": {
+    "koa": "^2.7.0",
+    "koa2-cors": "^2.0.6",
+    "serverless-http": "^2.0.2"
+  }
+}
