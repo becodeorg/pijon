@@ -60,8 +60,12 @@
     "serverless-s3-local": "^0.5.0"
   },
   "dependencies": {
+    "aws-sdk": "^2.496.0",
     "koa": "^2.7.0",
+    "koa-body": "^4.1.0",
     "koa2-cors": "^2.0.6",
-    "serverless-http": "^2.0.2"
+    "mime": "^2.4.4",
+    "serverless-http": "^2.0.2",
+    "uuid": "^3.3.2"
   }
 }

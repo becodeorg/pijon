@@ -50,8 +50,7 @@ functions:
   upload-handler:
     handler: bin/pijon.handler
     events:
-      - http: GET /
-      - http: "GET {proxy+}"
+      - http: POST /
   s3-hook:
     handler: bin/s3.handler
     events:
