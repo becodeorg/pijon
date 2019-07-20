@@ -8,8 +8,8 @@
     "dev": "npx serverless offline --port 6070 start",
     "build": "npx babel src --out-dir bin",
     "work": "npx babel src -w --out-dir bin",
-    "deploy:dev": "npx sls deploy",
-    "deploy:prod": "npx sls deploy --stage=production"
+    "deploy:dev": "npx sls deploy function --function upload-handler",
+    "deploy:prod": "npx sls deploy function --function upload-handler --stage=production"
   },
   "repository": {
     "type": "git",
