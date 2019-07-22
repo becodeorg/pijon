@@ -36,6 +36,7 @@ app.use(async (ctx, next) => {
                 );
                 Sentry.captureException(err);
             });
+            await Sentry.flush(2000);
         }
         ctx.status = err.status || 500;
         ctx.body = {
