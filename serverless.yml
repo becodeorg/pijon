@@ -18,10 +18,8 @@ provider:
     - Effect: "Allow"
       Action:
         - "s3:ListBucket"
-      Resource: "*"
-    - Effect: "Allow"
-      Action:
         - "s3:PutObject"
+        - "s3:PutObjectAcl"
       Resource: "*"
 
 plugins:
@@ -47,4 +45,7 @@ functions:
   upload-handler:
     handler: bin/pijon.handler
     events:
-      - http: POST /
+      - http:
+          path: /
+          method: post
+          cors: true
