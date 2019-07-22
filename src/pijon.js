@@ -18,11 +18,6 @@ import uuid from "uuid/v5";
 const IS_OFFLINE = process.env.IS_OFFLINE === "true";
 const LOCAL_S3_ENDPOINT = "http://localhost:6071";
 const AWS_REGION = "eu-west-1";
-const {
-    AWS_ACCESS_KEY_ID,
-    AWS_SECRET_ACCESS_KEY,
-    AWS_S3_BUCKET_NAME,
-} = process.env;
 
 const app = new Koa();
 
@@ -46,6 +41,30 @@ app.use(
 );
 
 app.use(async ctx => {
+    const {service} = ctx.request.query;
+
+    if (!service) {
+        throw new Error("No service id given!");
+    }
+
+    const BUCKET_NAME = IS_OFFLINE
+        ? "local-bucket"
+        : process.env[`SERVICE_${service}_BUCKET`];
+    const ORIGIN = (IS_OFFLINE
+        ? "localhost"
+        : process.env[`SERVICE_${service}_ORIGIN`]
+    ).split(",");
+
+    if (!(BUCKET_NAME || ORIGIN.length)) {
+        throw new Error("Unknown service!");
+    }
+
+    const {hostname} = new URL(ctx.request.headers.origin);
+
+    if (!ORIGIN.includes(hostname)) {
+        throw new Error("Invalid origin!");
+    }
+
     const client = new AWS.S3(
         IS_OFFLINE
             ? {
@@ -55,8 +74,7 @@ app.use(async ctx => {
                   endpoint: new AWS.Endpoint(LOCAL_S3_ENDPOINT),
               }
             : {
-                  accessKeyId: AWS_ACCESS_KEY_ID,
-                  secretAccessKey: AWS_SECRET_ACCESS_KEY,
+                  // from inside a lambda, no need accessKeys
                   region: AWS_REGION,
               },
     );
@@ -65,11 +83,8 @@ app.use(async ctx => {
 
     const {Location} = await client
         .upload({
-            Bucket: IS_OFFLINE ? "local-bucket" : AWS_S3_BUCKET_NAME,
-            Key: `${uuid(
-                AWS_S3_BUCKET_NAME,
-                uuid.URL,
-            )}-${file.name.toLowerCase()}`,
+            Bucket: BUCKET_NAME,
+            Key: `${uuid(BUCKET_NAME, uuid.URL)}-${file.name.toLowerCase()}`,
             Body: createReadStream(file.path),
             ContentType: getType(file.name),
             ACL: "public-read",
