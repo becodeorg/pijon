@@ -16,9 +16,21 @@ provider:
   environment: ${file(./env/sls.env.json):${opt:stage,"dev"}}
 
 plugins:
+  - serverless-s3-local
+  - serverless-offline
   - serverless-domain-manager
 
+resources:
+  Resources:
+    NewResource:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: local-bucket
+
 custom:
+  s3:
+    port: 6071
+    directory: ./bucket
   stages:
     dev:
       domain: pijon-dev.becode.xyz
@@ -39,3 +51,8 @@ functions:
     handler: bin/pijon.handler
     events:
       - http: POST /
+  s3-hook:
+    handler: bin/s3.handler
+    events:
+      - s3: local-bucket
+        event: s3:*

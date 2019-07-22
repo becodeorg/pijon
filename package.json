@@ -5,11 +5,11 @@
   "private": true,
   "scripts": {
     "lint": "npx eslint --fix --cache src",
-    "dev": "npx serverless offline --port 6070 start",
+    "dev": "npx sls offline --config ./serverless.local.yml --port 6070 start",
     "build": "npx babel src --out-dir bin",
     "work": "npx babel src -w --out-dir bin",
-    "deploy:dev": "npx sls deploy function --function upload-handler",
-    "deploy:prod": "npx sls deploy function --function upload-handler --stage=production"
+    "deploy:dev": "npx sls deploy",
+    "deploy:prod": "npx sls deploy --stage=production"
   },
   "repository": {
     "type": "git",
