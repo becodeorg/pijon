@@ -8,8 +8,10 @@
     "dev": "npx sls offline --config ./serverless.local.yml --port 6070 start",
     "build": "npx babel src --out-dir bin",
     "work": "npx babel src -w --out-dir bin",
-    "deploy:dev": "npx sls deploy",
-    "deploy:prod": "npx sls deploy --stage=production"
+    "upload:dev": "npx sls deploy",
+    "upload:prod": "npx sls deploy --stage=production",
+    "deploy:dev": "npx run-s build upload:dev",
+    "deploy:prod": "npx run-s build upload:prod"
   },
   "repository": {
     "type": "git",
@@ -53,6 +55,7 @@
     "eslint-plugin-unicorn": "^9.1.1",
     "husky": "^3.0.1",
     "lint-staged": "^9.2.0",
+    "npm-run-all": "^4.1.5",
     "prettier": "^1.18.2",
     "serverless": "^1.48.0",
     "serverless-domain-manager": "^3.2.6",
