@@ -14,6 +14,15 @@ provider:
   memorySize: 128
   timeout: 15
   environment: ${file(./env/sls.env.json):${opt:stage,"dev"}}
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "s3:ListBucket"
+      Resource: "*"
+    - Effect: "Allow"
+      Action:
+        - "s3:PutObject"
+      Resource: "*"
 
 plugins:
   - serverless-domain-manager
