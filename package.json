@@ -5,7 +5,6 @@
   "private": true,
   "scripts": {
     "lint": "npx eslint --fix --cache src",
-    "dev": "npx sls offline --config ./serverless.local.yml --port 6070 start",
     "build": "npx babel src --out-dir bin",
     "work": "npx babel src -w --out-dir bin",
     "upload:dev": "npx sls deploy",
@@ -67,7 +66,6 @@
     "koa": "^2.7.0",
     "koa-body": "^4.1.0",
     "koa2-cors": "^2.0.6",
-    "mime": "^2.4.4",
     "serverless-http": "^2.0.2",
     "uuid": "^3.3.2"
   }
