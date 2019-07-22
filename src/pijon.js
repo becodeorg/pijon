@@ -12,8 +12,15 @@ import koaBody from "koa-body";
 import cors from "koa2-cors";
 import * as AWS from "aws-sdk";
 import uuid from "uuid/v4";
+import * as Sentry from "@sentry/node";
 
-const {AWS_REGION} = process.env;
+const {AWS_REGION, AWS_LAMBDA_FUNCTION_NAME, SENTRY_DSN} = process.env;
+
+const STAGE = AWS_LAMBDA_FUNCTION_NAME.includes("production") ? "prod" : "dev";
+
+if (SENTRY_DSN) {
+    Sentry.init({dsn: SENTRY_DSN, environment: STAGE});
+}
 
 const app = new Koa();
 
@@ -22,6 +29,14 @@ app.use(async (ctx, next) => {
     try {
         await next();
     } catch (err) {
+        if (SENTRY_DSN) {
+            Sentry.withScope(scope => {
+                scope.addEventProcessor(event =>
+                    Sentry.Handlers.parseRequest(event, ctx.request),
+                );
+                Sentry.captureException(err);
+            });
+        }
         ctx.status = err.status || 500;
         ctx.body = {
             message: err.message,
