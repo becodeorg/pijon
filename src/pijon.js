@@ -68,7 +68,7 @@ app.use(async ctx => {
     }
 
     const BUCKET_NAME = process.env[`SERVICE_${service}_BUCKET`];
-    const ORIGIN = process.env[`SERVICE_${service}_ORIGIN`].split(",");
+    const ORIGIN = (process.env[`SERVICE_${service}_ORIGIN`] || "").split(",");
 
     if (!(BUCKET_NAME || ORIGIN.length)) {
         throw new Error("Unknown service!");
