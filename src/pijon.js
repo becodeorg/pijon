@@ -11,17 +11,13 @@ import Koa from "koa";
 import koaBody from "koa-body";
 import cors from "koa2-cors";
 import * as AWS from "aws-sdk";
-import {createReadStream} from "fs";
-import {getType} from "mime/lite";
-import uuid from "uuid/v5";
+import uuid from "uuid/v4";
 
-const IS_OFFLINE = process.env.IS_OFFLINE === "true";
-const LOCAL_S3_ENDPOINT = "http://localhost:6071";
-const AWS_REGION = "eu-west-1";
+const {AWS_REGION} = process.env;
 
 const app = new Koa();
 
-app.use(koaBody({multipart: true}));
+app.use(koaBody());
 app.use(async (ctx, next) => {
     try {
         await next();
@@ -41,19 +37,22 @@ app.use(
 );
 
 app.use(async ctx => {
-    const {service} = ctx.request.query;
+    const {service, name, type} = ctx.request.body;
 
     if (!service) {
         throw new Error("No service id given!");
     }
 
-    const BUCKET_NAME = IS_OFFLINE
-        ? "local-bucket"
-        : process.env[`SERVICE_${service}_BUCKET`];
-    const ORIGIN = (IS_OFFLINE
-        ? "localhost"
-        : process.env[`SERVICE_${service}_ORIGIN`]
-    ).split(",");
+    if (!name) {
+        throw new Error("No name given!");
+    }
+
+    if (!type) {
+        throw new Error("No type given!");
+    }
+
+    const BUCKET_NAME = process.env[`SERVICE_${service}_BUCKET`];
+    const ORIGIN = process.env[`SERVICE_${service}_ORIGIN`].split(",");
 
     if (!(BUCKET_NAME || ORIGIN.length)) {
         throw new Error("Unknown service!");
@@ -65,34 +64,36 @@ app.use(async ctx => {
         throw new Error("Invalid origin!");
     }
 
-    const client = new AWS.S3(
-        IS_OFFLINE
-            ? {
-                  accessKeyId: "S3RVER",
-                  secretAccessKey: "S3RVER",
-                  s3ForcePathStyle: true,
-                  endpoint: new AWS.Endpoint(LOCAL_S3_ENDPOINT),
-              }
-            : {
-                  // from inside a lambda, no need accessKeys
-                  region: AWS_REGION,
-              },
-    );
+    const client = new AWS.S3({
+        // from inside a lambda, no need for accessKeys
+        region: AWS_REGION,
+    });
 
-    const {file} = ctx.request.files;
+    const key = `${uuid()}-${name.toLowerCase()}`;
 
-    const {Location} = await client
-        .upload({
-            Bucket: BUCKET_NAME,
-            Key: `${uuid(BUCKET_NAME, uuid.URL)}-${file.name.toLowerCase()}`,
-            Body: createReadStream(file.path),
-            ContentType: getType(file.name),
-            ACL: "public-read",
-        })
-        .promise();
+    const uploadUrl = await new Promise((resolve, reject) => {
+        client.getSignedUrl(
+            "putObject",
+            {
+                Bucket: BUCKET_NAME,
+                Key: key,
+                ContentType: type,
+                ACL: "public-read",
+            },
+            (err, url) => {
+                if (err) {
+                    return reject(err);
+                }
+                return resolve(url);
+            },
+        );
+    });
 
     // eslint-disable-next-line require-atomic-updates
-    ctx.body = {location: Location};
+    ctx.body = {
+        uploadUrl,
+        objectUrl: `https://${BUCKET_NAME}.s3-${AWS_REGION}.amazonaws.com/${key}`,
+    };
 });
 
 export const handler = sls(app);
