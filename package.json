@@ -58,7 +58,7 @@
     "prettier": "^1.18.2",
     "serverless": "^1.49.0",
     "serverless-domain-manager": "^3.2.6",
-    "serverless-offline": "^5.8.0",
+    "serverless-offline": "^5.9.0",
     "serverless-s3-local": "^0.5.0"
   },
   "dependencies": {
