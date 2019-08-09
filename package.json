@@ -63,7 +63,7 @@
   },
   "dependencies": {
     "@sentry/node": "^5.6.1",
-    "aws-sdk": "^2.505.0",
+    "aws-sdk": "^2.506.0",
     "koa": "^2.7.0",
     "koa-body": "^4.1.0",
     "koa2-cors": "^2.0.6",
