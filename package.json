@@ -67,7 +67,7 @@
     "koa": "^2.7.0",
     "koa-body": "^4.1.0",
     "koa2-cors": "^2.0.6",
-    "serverless-http": "^2.0.2",
+    "serverless-http": "^2.1.0",
     "uuid": "^3.3.2"
   }
 }
