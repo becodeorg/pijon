@@ -37,9 +37,12 @@ Simply call the URL on of the lambda with `POST` request with three properties:
 - `service`: your *pijon service id* as explained
 - `name`: the name of the file that will be uploaded
 - `type`: the *mime type* of the file that will be uploaded
+- `acl`: the *ACL* to applied to the upload (defaults to `"public-read"`).
 
-The call will respond a `json object` with two properties:
+The call will respond a `json object` with four properties:
 
+- `bucket`: the name of the bucket on which the file is stored
+- `key`: the key of the file on the bucket
 - `uploadUrl`: the URL to make a `PUT` request to with your file
 - `objectUrl`: the final, public URL of your file on your S3 bucket, after the upload is done
 
