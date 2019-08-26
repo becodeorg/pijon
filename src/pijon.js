@@ -53,7 +53,7 @@ app.use(
 );
 
 app.use(async ctx => {
-    const {service, name, type} = ctx.request.body;
+    const {service, name, type, acl = "public-read"} = ctx.request.body;
 
     if (!service) {
         throw new Error("No service id given!");
@@ -94,7 +94,7 @@ app.use(async ctx => {
                 Bucket: BUCKET_NAME,
                 Key: key,
                 ContentType: type,
-                ACL: "public-read",
+                ACL: acl,
             },
             (err, url) => {
                 if (err) {
@@ -109,6 +109,8 @@ app.use(async ctx => {
     ctx.body = {
         uploadUrl,
         objectUrl: `https://${BUCKET_NAME}.s3-${AWS_REGION}.amazonaws.com/${key}`,
+        bucket: BUCKET_NAME,
+        key,
     };
 });
 
