@@ -111,6 +111,7 @@ app.use(async ctx => {
         objectUrl: `https://${BUCKET_NAME}.s3-${AWS_REGION}.amazonaws.com/${key}`,
         bucket: BUCKET_NAME,
         key,
+        region: AWS_REGION,
     };
 });
 

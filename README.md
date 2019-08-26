@@ -43,6 +43,7 @@ The call will respond a `json object` with four properties:
 
 - `bucket`: the name of the bucket on which the file is stored
 - `key`: the key of the file on the bucket
+- `region`: the region where the bucket is stored
 - `uploadUrl`: the URL to make a `PUT` request to with your file
 - `objectUrl`: the final, public URL of your file on your S3 bucket, after the upload is done
 
