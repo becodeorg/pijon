@@ -39,7 +39,7 @@ Simply call the URL on of the lambda with `POST` request with three properties:
 - `type`: the *mime type* of the file that will be uploaded
 - `acl`: the *ACL* to applied to the upload (defaults to `"public-read"`).
 
-The call will respond a `json object` with four properties:
+The call will respond a `json object` with following properties:
 
 - `bucket`: the name of the bucket on which the file is stored
 - `key`: the key of the file on the bucket
