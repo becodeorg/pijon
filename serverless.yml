@@ -2,6 +2,7 @@ service: pijon
 
 package:
   exclude:
+    - env/**
     - bucket/**
     - src/**
     - README.md
