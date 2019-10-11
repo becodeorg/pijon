@@ -10,7 +10,7 @@ import sls from "serverless-http";
 import Koa from "koa";
 import koaBody from "koa-body";
 import cors from "koa2-cors";
-import * as AWS from "aws-sdk";
+import S3 from "aws-sdk/clients/s3";
 import uuid from "uuid/v4";
 import * as Sentry from "@sentry/node";
 
@@ -80,7 +80,7 @@ app.use(async ctx => {
         throw new Error("Invalid origin!");
     }
 
-    const client = new AWS.S3({
+    const client = new S3({
         // from inside a lambda, no need for accessKeys
         region: AWS_REGION,
     });

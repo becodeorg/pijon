@@ -1,6 +1,7 @@
 service: pijon
 
 package:
+  excludeDevDependencies: true
   exclude:
     - env/**
     - bucket/**
