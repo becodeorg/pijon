@@ -45,7 +45,7 @@
     "@babel/preset-env": "^7.7.6",
     "@becode/eslint-config": "^0.8.2",
     "@sentry/cli": "^1.49.0",
-    "aws-sdk": "^2.588.0",
+    "aws-sdk": "^2.591.0",
     "babel-eslint": "^10.0.3",
     "eslint": "^6.7.2",
     "eslint-plugin-prettier": "^3.1.1",
