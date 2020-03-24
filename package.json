@@ -43,7 +43,7 @@
     "@babel/core": "^7.9.0",
     "@babel/polyfill": "^7.8.7",
     "@babel/preset-env": "^7.9.0",
-    "@becode/eslint-config": "^0.8.2",
+    "@becode/eslint-config": "^0.9.0",
     "@sentry/cli": "^1.51.1",
     "aws-sdk": "^2.643.0",
     "babel-eslint": "^10.1.0",
