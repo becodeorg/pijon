@@ -64,7 +64,7 @@
   "dependencies": {
     "@sentry/node": "^5.15.5",
     "koa": "^2.11.0",
-    "koa-body": "^4.1.1",
+    "koa-body": "^4.1.2",
     "koa2-cors": "^2.0.6",
     "serverless-http": "^2.4.1",
     "uuid": "^8.0.0"
