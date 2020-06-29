@@ -62,7 +62,7 @@
     "serverless-s3-local": "^0.6.2"
   },
   "dependencies": {
-    "@sentry/node": "^5.18.0",
+    "@sentry/node": "^5.18.1",
     "koa": "^2.13.0",
     "koa-body": "^4.2.0",
     "koa2-cors": "^2.0.6",
