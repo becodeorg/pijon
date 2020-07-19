@@ -57,7 +57,7 @@
     "prettier": "^2.0.5",
     "rimraf": "^3.0.2",
     "serverless": "^1.75.1",
-    "serverless-domain-manager": "^4.1.1",
+    "serverless-domain-manager": "^4.2.0",
     "serverless-offline": "^6.4.0",
     "serverless-s3-local": "^0.6.2"
   },
