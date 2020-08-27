@@ -58,7 +58,7 @@
     "rimraf": "^3.0.2",
     "serverless": "^1.79.0",
     "serverless-domain-manager": "^4.2.0",
-    "serverless-offline": "^6.5.0",
+    "serverless-offline": "^6.7.0",
     "serverless-s3-local": "^0.6.4"
   },
   "dependencies": {
