@@ -7,7 +7,7 @@
     "lint": "npx eslint --fix --cache src",
     "build": "npx babel src --out-dir bin",
     "work": "npx babel src -w --out-dir bin",
-    "deploy:dev": "npx sls deploy"
+    "push:release": "sh ./scripts/push-release.sh"
   },
   "repository": {
     "type": "git",
