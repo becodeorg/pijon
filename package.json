@@ -59,7 +59,7 @@
     "serverless": "^1.79.0",
     "serverless-domain-manager": "^4.2.0",
     "serverless-offline": "^6.5.0",
-    "serverless-s3-local": "^0.6.4"
+    "serverless-s3-local": "^0.6.5"
   },
   "dependencies": {
     "@sentry/node": "^5.21.1",
