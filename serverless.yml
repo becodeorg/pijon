@@ -12,7 +12,7 @@ provider:
   name: aws
   region: eu-west-1
   stage: ${opt:stage, "dev"}
-  runtime: nodejs10.x
+  runtime: nodejs12.x
   memorySize: 128
   timeout: 15
   environment: ${file(./env/sls.env.json):${opt:stage,"dev"}}
@@ -29,15 +29,12 @@ plugins:
 
 custom:
   stages:
-    dev:
-      domain: pijon-dev.becode.xyz
-      domainEnabled: true
     production:
-      domain: pijon.becode.xyz
+      domain: pijon.becode.org
       domainEnabled: true
   customDomain:
     domainName: ${self:custom.stages.${self:provider.stage}.domain}
-    certificateName: "*.becode.xyz"
+    certificateName: "*.becode.org"
     basePath: ""
     stage: ${self:provider.stage}
     createRoute53Record: true
