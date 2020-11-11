@@ -21,16 +21,13 @@
   "homepage": "https://github.com/becodeorg/pijon#readme",
   "lint-staged": {
     "*.yml": [
-      "npx prettier --write",
-      "git add"
+      "npx prettier --write"
     ],
     "*.json": [
-      "npx prettier --write",
-      "git add"
+      "npx prettier --write"
     ],
     "*.js": [
-      "npx eslint --fix --cache",
-      "git add"
+      "npx eslint --fix --cache"
     ]
   },
   "husky": {
@@ -57,7 +54,7 @@
     "prettier": "^2.1.2",
     "rimraf": "^3.0.2",
     "serverless": "^1.81.1",
-    "serverless-domain-manager": "^3.3.2",
+    "serverless-domain-manager": "^5.0.0",
     "serverless-offline": "^6.8.0",
     "serverless-s3-local": "^0.6.7"
   },
