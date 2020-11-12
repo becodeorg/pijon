@@ -11,7 +11,7 @@ import Koa from "koa";
 import koaBody from "koa-body";
 import cors from "koa2-cors";
 import S3 from "aws-sdk/clients/s3";
-import uuid from "uuid/v4";
+import {v4 as uuid} from "uuid";
 import * as Sentry from "@sentry/node";
 
 const {AWS_REGION, AWS_LAMBDA_FUNCTION_NAME, SENTRY_DSN} = process.env;
