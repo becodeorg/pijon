@@ -1,6 +1,6 @@
 {
   "name": "@becode/pijon",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Pijon, the delivery man - File upload lambda preparator",
   "private": true,
   "scripts": {
