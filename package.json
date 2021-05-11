@@ -60,7 +60,7 @@
   },
   "dependencies": {
     "@sentry/node": "^5.27.3",
-    "koa": "^2.13.0",
+    "koa": "^2.13.1",
     "koa-body": "^4.2.0",
     "koa2-cors": "^2.0.6",
     "serverless-http": "^2.6.0",
